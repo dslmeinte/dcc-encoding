@@ -1,6 +1,6 @@
 import {Encoding, isValidInt, noDescription} from "./encoding"
 import {combineNrEvents, Event, Events, NrEvents} from "./events"
-import {reduceTracing} from "./func-utils"
+import {reduceAccumulatively} from "./func-utils"
 import {updateFor} from "./logic"
 
 
@@ -31,7 +31,7 @@ const propagate = (current: State, newEvent: Event): State => {
 }
 
 export const encode = (events: Events): State[] =>
-    reduceTracing(propagate, {
+    reduceAccumulatively(propagate, {
         nrEvents: {
             nr1Vaccines: 0,
             nr2Vaccines: 0,
