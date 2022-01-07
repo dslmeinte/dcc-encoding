@@ -2,20 +2,27 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 import "./styling.css"
-import {Events} from "./events"
+import {eventsFrom} from "./events"
 import {encode, StateTable} from "./state"
 
 
 const App = () => {
-    const example: Events = [ "recovery", "1-vaccine", "2-vaccine", "recovery" ]
+    const params = new URLSearchParams(location.search)
+
+    const events = eventsFrom(params.get("events"))
+    if (events === null) {
+        location.href = location.pathname + `?events=R,1V,2V,R`
+        return <span>(redirecting to URL with example query parameter "events")</span>
+    }
+
     return <main>
         <h1>DCC encoding simulator</h1>
         <h2>Simulation</h2>
-        <StateTable states={encode(example)} />
+        <StateTable states={encode(events)} />
         <h2>Legenda</h2>
         <dl>
             <dt>event</dt>
-            <dd>A recorded event, being: recovery | vaccination with a 1-dose vaccine | vaccination with a 2-dose vaccine.</dd>
+            <dd>A recorded event, being: R = recovery | 1V = vaccination with a 1-dose vaccine | 2V = vaccination with a 2-dose vaccine.</dd>
 
             <dt className="tt">dn/sd</dt>
             <dd>The <span className="tt">dn/sd</span> fields' values in the issued DCC.</dd>

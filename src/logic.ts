@@ -2,19 +2,19 @@ import {Event} from "./events"
 import {noDescription, notEncoded} from "./encoding"
 
 
-export const updateFor = (event: Event, dn: number, sd: number, nr1Vaccines: number, nr2Vaccines: number, nrRecoveries: number): [ number, number, string ] => {
+export const updateFor = (event: Event, dn: number, sd: number, nr1Vaccines: number, nr2Vaccines: number, nrRecoveries: number): [number, number, string] => {
     switch (event) {
-        case "1-vaccine": {
+        case "1V": {
             if (nr1Vaccines === 0) {
                 if (nr2Vaccines === 0) {
                     if (nrRecoveries === 0) {
-                        return [ 1, 1, "primary course 1-dose vaccine completed" ]
+                        return [1, 1, "primary course 1-dose vaccine completed"]
                     } else {
-                        return [ 2, 1, "recovery + primary course 1-dose vaccine completed"]
+                        return [2, 1, "recovery + primary course 1-dose vaccine completed"]
                     }
                 } else {    // nr2Vaccines > 0
                     if (dn >= sd) {
-                        return [ dn + 1, sd, "+++" ]
+                        return [dn + 1, sd, "+++"]
                     } else {
                         // ...
                     }
@@ -24,21 +24,21 @@ export const updateFor = (event: Event, dn: number, sd: number, nr1Vaccines: num
             }
             break
         }
-        case "2-vaccine": {
+        case "2V": {
             if (dn === 2 && sd === 1) {
-                return [ dn + 1, sd, "Janssen-kinded booster"]
+                return [dn + 1, sd, "Janssen-kinded booster"]
             }
             break
         }
-        case "recovery": {
+        case "R": {
             if (nr1Vaccines === 0) {
                 if (nr2Vaccines === 0) {
-                    return [ dn, sd, "(just a recovery)" ]
+                    return [dn, sd, "(just a recovery)"]
                 }
             }
         }
     }
 
-    return [ notEncoded, notEncoded, noDescription ]
+    return [notEncoded, notEncoded, noDescription]
 }
 
