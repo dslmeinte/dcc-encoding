@@ -34,15 +34,21 @@ td.step-num {
     background-color: lightgrey;
 }
 
-.error {
+.error, .fail {
     background-color: lightcoral;
 }
 
-td.pass {
+td.center {
+    text-align: center;
+}
+
+.pass {
     background-color: lightgreen;
 }
 
-td.fail {
-    background-color: lightcoral;
+button {
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid darkgrey;
 }
 

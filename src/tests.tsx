@@ -57,10 +57,13 @@ const TestRow = ({ testCase }: { testCase: TestCase }) => {
     return <tr>
         <td>{testCase.events.replaceAll(",", ", ")}</td>
         <td>{expectedEncodingAsText}</td>
-        <td className={pass ? "pass" : "fail"}>{actualEncodingAsText}</td>
-        <td><button onClick={() => {
-            location.href = `${location.pathname}?events=${testCase.events}`
-        }}>Simulate</button></td>
+        <td className="center">
+            <button
+                className={pass ? "pass" : "fail"}
+                onClick={() => {
+                    location.href = `${location.pathname}?events=${testCase.events}`
+                }}>{actualEncodingAsText}</button>
+        </td>
     </tr>
 }
 
@@ -71,7 +74,6 @@ export const TestTable = () =>
                 <td>events</td>
                 <td>expected</td>
                 <td>actual</td>
-                <td>action</td>
             </tr>
         </thead>
         <tbody>

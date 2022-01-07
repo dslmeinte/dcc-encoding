@@ -1,53 +1,48 @@
-import {Event} from "./events"
 import {noDescription, notEncoded} from "./encoding"
+import {Event} from "./events"
+import {State} from "./state"
 
 
-export const updateFor = (
-            event: Event,
-            dn: number, sd: number,   // ...but don't want to use those, really...
-            nr1Vaccines: number, nr2Vaccines: number, nrRecoveries: number
-        ): [number, number, string] => {
+export const updateFor = (state: State, event: Event):
+        [number, number, string, boolean] => {
+    const { dn, sd } = state.encoding
+    const { nr1Vaccines, nr2Vaccines, nrRecoveries } = state.nrEvents
+    const { primaryCourseCompleted } = state
     switch (event) {
         case "1V": {
-            if (nr1Vaccines === 0) {
-                if (nrRecoveries === 0) {
-                    return [1, 1, "primary course with 1-dose vaccine completed"]
-                } else {
-                    return [2, 1, "recovery + primary course with 1-dose vaccine completed"]
-                }
+            if (nr1Vaccines === 0 && nr2Vaccines === 0) {
+                return [1, 1, "primary course with 1-dose vaccine completed", true]
             } else {    // nr1Vaccines > 0
-                // ...
+                return [nr1Vaccines + nr2Vaccines + 1, 1, "booster", true]
             }
-            break
+            // break
         }
         case "2V": {
+            if (primaryCourseCompleted) {
+                return [dn + 1, sd === 1 ? 1 : sd + 1, "booster", true]
+            }
             if (nr2Vaccines === 0) {
                 if (nrRecoveries === 0) {
-                    return [1, 2, "primary course with 2-dose vaccine in progress"]
+                    return [1, 2, "primary course with 2-dose vaccine in progress", false]
                 } else {
-                    return [2, 2, "primary course with 2-dose vaccine completed"]
+                    return [2, 1, "primary course with 2-dose vaccine completed", true]
                 }
-            } else {    // nr2Vaccines > 0
-                if (dn >= sd) {
-                    return [dn + 1, sd, "+++"]
-                } else {
-                    // ...
-                }
+            } else if (nr2Vaccines === 1) {
+                return [2, 2, "primary course with 2-dose vaccine completed", true]
+            } else {
+                return [nr2Vaccines + 1, nr2Vaccines + 1, "booster", true]
             }
-            if (dn === 2 && sd === 1) {
-                return [dn + 1, sd, "Janssen-kinded booster"]
-            }
-            break
+            // break
         }
         case "R": {
-            if (nr2Vaccines === 1) {
-                return [2, 2, "primary course with 2-dose vaccine completed"]
+            if (!primaryCourseCompleted && nr2Vaccines === 1) {
+                return [2, 2, "primary course with 2-dose vaccine completed", true]
             }
-            return [dn, sd, "(just a recovery)"]
-            break
+            return [dn, sd, "(just a recovery)", primaryCourseCompleted]
+            // break
         }
     }
 
-    return [notEncoded, notEncoded, noDescription]
+    return [notEncoded, notEncoded, noDescription, primaryCourseCompleted]
 }
 

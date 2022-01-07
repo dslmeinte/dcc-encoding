@@ -4,9 +4,10 @@ import {reduceAccumulatively} from "./func-utils"
 import {updateFor} from "./logic"
 
 
-type State = {
+export type State = {
     nrEvents: NrEvents
     encoding: Encoding
+    primaryCourseCompleted: boolean
     lastEvent?: Event   // = undefined <==> description = "(initial)"
     summary: string
 }
@@ -14,17 +15,14 @@ type State = {
 
 const propagate = (current: State, newEvent: Event): State => {
     const newNrEvents = combineNrEvents(current.nrEvents, newEvent)
-    const result = updateFor(
-        newEvent,
-        current.encoding.dn, current.encoding.sd,
-        current.nrEvents.nr1Vaccines, current.nrEvents.nr2Vaccines, current.nrEvents.nrRecoveries
-    )
+    const result = updateFor(current, newEvent)
     return {
         nrEvents: newNrEvents,
         encoding: {
             dn: result[0],
             sd: result[1],
         },
+        primaryCourseCompleted: result[3],
         lastEvent: newEvent,
         summary: result[2]
     }
@@ -41,14 +39,15 @@ export const encode = (events: Events): State[] =>
             dn: 0,
             sd: 0
         },
+        primaryCourseCompleted: false,
         summary: "(initial)"
     })(events)
 
 
-const StateRow = ({ state, idx }: { state: State, idx: number }) => {
+const StateRow = ({ state, index }: { state: State, index: number }) => {
     const { dn, sd } = state.encoding
     return <tr>
-        <td className="step-num">{idx}</td>
+        <td className="step-num">{index}</td>
         <td>{state.lastEvent ?? "-"}</td>
         <td className={isValidInt(dn) ? "" : "error"}>{dn}</td>
         <td className={isValidInt(sd) ? "" : "error"}>{sd}</td>
@@ -56,6 +55,7 @@ const StateRow = ({ state, idx }: { state: State, idx: number }) => {
         <td>{state.nrEvents.nr1Vaccines}</td>
         <td>{state.nrEvents.nr2Vaccines}</td>
         <td>{state.nrEvents.nrRecoveries}</td>
+        <td>{state.primaryCourseCompleted ? "\u2713": ""}</td>
     </tr>
 }
 
@@ -71,10 +71,11 @@ export const StateTable = ({ states }: { states: State[] }) =>
                 <th>#1<sup>s</sup></th>
                 <th>#2<sup>s</sup></th>
                 <th>#R<sup>s</sup></th>
+                <th>primary course completed</th>
             </tr>
         </thead>
         <tbody>
-            {states.slice(1).map((state, idx) => <StateRow state={state} idx={idx + 1} />)}
+            {states.slice(1).map((state, index) => <StateRow state={state} index={index + 1} key={index + 1} />)}
         </tbody>
     </table>
 
