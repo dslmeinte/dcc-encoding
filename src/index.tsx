@@ -4,6 +4,7 @@ import ReactDOM from "react-dom"
 import "./styling.css"
 import {eventsFrom} from "./events"
 import {encode, StateTable} from "./state"
+import {TestTable} from "./tests"
 
 
 const App = () => {
@@ -11,7 +12,7 @@ const App = () => {
 
     const events = eventsFrom(params.get("events"))
     if (events === null) {
-        location.href = location.pathname + `?events=R,1V,2V,R`
+        location.href = `${location.pathname}?events=R,1V,2V,R`
         return <span>(redirecting to URL with example query parameter "events")</span>
     }
 
@@ -39,6 +40,12 @@ const App = () => {
             These events are found (in order) in the “event” column.
 
         </p>
+        <h2>Test cases</h2>
+        <p>
+            The following test cases serve as unit tests.
+            Click the “Simulate”-button of a test case to run the simulator on the corresponding events.
+        </p>
+        <TestTable />
         <p>
             This mini-app has been developed by the <a href="https://ec.europa.eu/health/ehealth/policy/network_en">European Health Network</a> (eHN), as part of the <a href="https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/eu-digital-covid-certificate_en">EU Digital COVID Certificate effort</a>.
         </p>

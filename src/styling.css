@@ -38,3 +38,11 @@ td.step-num {
     background-color: lightcoral;
 }
 
+td.pass {
+    background-color: lightgreen;
+}
+
+td.fail {
+    background-color: lightcoral;
+}
+
