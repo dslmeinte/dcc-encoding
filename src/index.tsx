@@ -2,9 +2,10 @@ import React from "react"
 import ReactDOM from "react-dom"
 
 import "./styling.css"
-import {eventsFrom} from "./events"
+import {eventsFrom, randomSequenceAsString} from "./events"
 import {encode, StateTable} from "./state"
 import {TestTable} from "./tests"
+import {redirecter} from "./url-util"
 
 
 const App = () => {
@@ -12,14 +13,24 @@ const App = () => {
 
     const events = eventsFrom(params.get("events"))
     if (events === null) {
-        location.href = `${location.pathname}?events=R,1V,2V,R`
+        redirecter("R,1V,2V,R")()
         return <span>(redirecting to URL with example query parameter "events")</span>
     }
 
     return <main>
         <h1>DCC encoding simulator</h1>
         <h2>Simulation</h2>
+        <p>
+            The following is a simulation of the issuance of subsequent DCC solely based on a sequence of “events” (either recoveries, or vaccinations).
+            The purpose of this is to see how the <span className="tt">dn/sd</span> fields' values are to be calculated.
+            The sequence of events is governed by the “<span className="tt">events</span>” query parameter in the URL.
+            Modify the URL to simulate a particular sequence of events, which must be encoded as a comma-separated string of any of “R”, “1V”, or “2V”.
+        </p>
         <StateTable states={encode(events)} />
+        <p>
+            Click this button to generate a (short) random sequence of events, and simulate that - this modifies the URL.
+        </p>
+        <button onClick={redirecter(randomSequenceAsString())}>Simulate random sequence of events</button>
         <h2>Legenda</h2>
         <dl>
             <dt>event</dt>
@@ -48,6 +59,8 @@ const App = () => {
         <TestTable />
         <p>
             This mini-app has been developed by the <a href="https://ec.europa.eu/health/ehealth/policy/network_en">European Health Network</a> (eHN), as part of the <a href="https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/eu-digital-covid-certificate_en">EU Digital COVID Certificate effort</a>.
+            <br/>
+            The source can be found in this GitHub repository: <a href="https://github.com/dslmeinte/dcc-encoding" target="_blank" className="tt">https://github.com/dslmeinte/dcc-encoding</a>.
         </p>
     </main>
 }

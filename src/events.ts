@@ -33,3 +33,13 @@ export const combineNrEvents = (current: NrEvents, newEvent: Event): NrEvents =>
         nrRecoveries: current.nrRecoveries + (newEvent === "R" ? 1 : 0)
     })
 
+
+const randInt = (maxNum: number) =>
+    Math.floor(maxNum * Math.random())
+
+const range = (len: number) =>
+    Array.from(Array(len).keys())
+
+export const randomSequenceAsString = () =>
+    range(randInt(4) + 1).map(_ => allEvents[randInt(allEvents.length)]).join(",")
+

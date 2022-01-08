@@ -2,6 +2,7 @@ import {encodingAsString} from "./encoding"
 import {eventsFrom} from "./events"
 import {last} from "./func-utils"
 import {encode} from "./state"
+import {redirecter} from "./url-util"
 
 
 type TestCase = {
@@ -60,9 +61,8 @@ const TestRow = ({ testCase }: { testCase: TestCase }) => {
         <td className="center">
             <button
                 className={pass ? "pass" : "fail"}
-                onClick={() => {
-                    location.href = `${location.pathname}?events=${testCase.events}`
-                }}>{actualEncodingAsText}</button>
+                onClick={redirecter(testCase.events)}
+            >{actualEncodingAsText}</button>
         </td>
     </tr>
 }
