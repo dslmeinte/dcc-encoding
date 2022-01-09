@@ -10,22 +10,29 @@ export const updateFor = (state: State, event: Event):
     const { primaryCourseCompleted } = state
     switch (event) {
         case "1V": {
-            if (nr1Vaccines === 0 && nr2Vaccines === 0) {
+            const nrVaccines = nr1Vaccines + nr2Vaccines + 1
+            if (nrVaccines === 1) {
                 return [1, 1, "primary course with 1-dose vaccine completed", true]
-            } else {    // nr1Vaccines > 0
-                return [nr1Vaccines + nr2Vaccines + 1, 1, "booster", true]
+            } else if (nr2Vaccines > 0 && nrRecoveries > 0) {
+                return [nrVaccines, 1, "booster", true]
+            } else {
+                return [nrVaccines, sd === 1 ? 1 : nrVaccines, "booster", true]
             }
             // break
         }
         case "2V": {
             if (primaryCourseCompleted) {
-                return [dn + 1, sd === 1 ? 1 : sd + 1, "booster", true]
+                if (dn === 2 && sd === 2 && nrRecoveries > 0) {
+                    return [dn, 1, "booster", true]
+                } else {
+                    return [dn + 1, sd === 1 ? 1 : sd + 1, "booster", true]
+                }
             }
             if (nr2Vaccines === 0) {
                 if (nrRecoveries === 0) {
                     return [1, 2, "primary course with 2-dose vaccine in progress", false]
                 } else {
-                    return [2, 1, "primary course with 2-dose vaccine completed", true]
+                    return [2, 2, "primary course with 2-dose vaccine completed", true]
                 }
             } else if (nr2Vaccines === 1) {
                 return [2, 2, "primary course with 2-dose vaccine completed", true]

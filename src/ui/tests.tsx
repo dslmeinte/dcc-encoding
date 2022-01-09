@@ -2,53 +2,8 @@ import {encodingAsString} from "../model/encoding"
 import {eventsFrom} from "../model/events"
 import {last} from "../func-utils"
 import {simulate} from "../model/state"
+import {TestCase, testCases} from "../model/tests"
 import {redirecter} from "./url-util"
-
-
-type TestCase = {
-    events: string
-    expectedEncoding: string
-}
-
-
-const testCases: TestCase[] = [
-    {
-        events: "R",
-        expectedEncoding: "0/0"
-    },
-    {
-        events: "1V",
-        expectedEncoding: "1/1"
-    },
-    {
-        events: "R,2V",
-        expectedEncoding: "2/1"
-    },
-    {
-        events: "1V,1V",
-        expectedEncoding: "2/1"
-    },
-    {
-        events: "1V,1V,1V",
-        expectedEncoding: "3/1"
-    },
-    {
-        events: "1V,1V,2V",
-        expectedEncoding: "3/1"
-    },
-    {
-        events: "2V",
-        expectedEncoding: "1/2"
-    },
-    {
-        events: "2V,2V",
-        expectedEncoding: "2/2"
-    },
-    {
-        events: "2V,2V,2V",
-        expectedEncoding: "3/3"
-    },
-]
 
 
 const TestRow = ({ testCase }: { testCase: TestCase }) => {
@@ -57,7 +12,7 @@ const TestRow = ({ testCase }: { testCase: TestCase }) => {
     const pass = expectedEncodingAsText === actualEncodingAsText && actualEncodingAsText.indexOf("-1") === -1
     return <tr>
         <td>{testCase.events.replaceAll(",", ", ")}</td>
-        <td>{expectedEncodingAsText}</td>
+        <td className="center">{expectedEncodingAsText}</td>
         <td className="center">
             <button
                 className={pass ? "pass" : "fail"}
@@ -72,8 +27,8 @@ export const TestTable = () =>
         <thead>
             <tr>
                 <td>events</td>
-                <td>expected</td>
-                <td>actual</td>
+                <td>exp.</td>
+                <td>act.</td>
             </tr>
         </thead>
         <tbody>

@@ -17,11 +17,19 @@ export const App = () => {
 
     return <main>
         <h1>DCC encoding simulator</h1>
-        <h2>Simulation</h2>
+        <h2>Explanation</h2>
         <p>
             The table below shows a simulation of the issuance of DCCs, focused specifically on the encoding of vaccinations vis-à-vis boosters, based on a sequence of consecutive “events” (either recoveries, or vaccinations).
             The purpose of this is to see how the <span className="tt">dn/sd</span> fields' values are (to be) calculated (and why).
+            This should be accordance with <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021D2301&qid=1641543677595" target="_blank">EU Implementing Decision 2021/2301</a>.
+            (The simulation does not take into account how long ago any of the events occurred.)
         </p>
+        <h3>Disclaimer</h3>
+        <p>
+            This mini-app is for internal development purposes only.
+            No rights can be derived from it.
+        </p>
+        <h2>Simulation</h2>
         <p>
             The sequence of events is governed by the “<span className="tt">events</span>” query parameter in the URL.
             You can modify the events in the table below - the simulation is re-run automatically, and the URL is updated accordingly.
