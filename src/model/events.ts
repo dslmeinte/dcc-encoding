@@ -19,6 +19,9 @@ export const eventsFrom = (str: string | null): Events | null => {
     return splitEvents as Events
 }
 
+export const eventsAsString = (events: Events): string =>
+    events.join(",")
+
 
 export type NrEvents = {
     nr1Vaccines: number
@@ -39,7 +42,29 @@ const randInt = (maxNum: number) =>
 
 const range = (len: number) =>
     Array.from(Array(len).keys())
+/*
+ * When using compiler option "--downlevelIteration",
+ * this can be shortened to [...Array(len).keys()].
+ */
 
 export const randomSequenceAsString = () =>
-    range(randInt(4) + 1).map(_ => allEvents[randInt(allEvents.length)]).join(",")
+    eventsAsString(
+        range(randInt(4) + 1).map(_ => allEvents[randInt(allEvents.length)])
+    )
+
+
+export type EventOrNothing = Event | undefined
+
+export type EventsUpdater = (index: number, newEvent: EventOrNothing) => Events
+
+export const updaterFor = (events: Events): EventsUpdater =>
+    (index, newEvent) => {
+        if (newEvent === undefined) {   // slice
+            return [...events.slice(0, index), ...events.slice(index + 1)]
+        } else if (index === events.length) {  // append
+            return [...events, newEvent]
+        } else {    // change
+            return [...events.slice(0, index), newEvent, ...events.slice(index + 1)]
+        }
+    }
 

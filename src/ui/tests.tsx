@@ -1,7 +1,7 @@
-import {encodingAsString} from "./encoding"
-import {eventsFrom} from "./events"
-import {last} from "./func-utils"
-import {encode} from "./state"
+import {encodingAsString} from "../model/encoding"
+import {eventsFrom} from "../model/events"
+import {last} from "../func-utils"
+import {simulate} from "../model/state"
 import {redirecter} from "./url-util"
 
 
@@ -53,7 +53,7 @@ const testCases: TestCase[] = [
 
 const TestRow = ({ testCase }: { testCase: TestCase }) => {
     const expectedEncodingAsText = testCase.expectedEncoding
-    const actualEncodingAsText = encodingAsString(last(encode(eventsFrom(testCase.events)!!)).encoding)
+    const actualEncodingAsText = encodingAsString(last(simulate(eventsFrom(testCase.events)!!)).encoding)
     const pass = expectedEncodingAsText === actualEncodingAsText && actualEncodingAsText.indexOf("-1") === -1
     return <tr>
         <td>{testCase.events.replaceAll(",", ", ")}</td>
