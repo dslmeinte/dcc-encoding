@@ -62,7 +62,7 @@ export const StateTable = ({ states, update }: { states: State[], update: Events
             <tr>
                 <td className="step-num">{states.length}</td>
                 <td><EventChooser event={undefined} index={states.length} update={update} /></td>
-                <td colSpan={3}>&larr; choose an event (1V | 2V | R) to add it to the sequence</td>
+                <td colSpan={3}>&larr; choose an event (1V | 2V | R) to add to the sequence</td>
             </tr>
         </tbody>
     </table>

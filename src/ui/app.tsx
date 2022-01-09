@@ -19,11 +19,11 @@ export const App = () => {
         <h1>DCC encoding simulator</h1>
         <h2>Simulation</h2>
         <p>
-            The following is a simulation of the issuance of subsequent DCC solely based on a sequence of “events” (either recoveries, or vaccinations).
-            The purpose of this is to see how the <span className="tt">dn/sd</span> fields' values are to be calculated.
-            The sequence of events is governed by the “<span className="tt">events</span>” query parameter in the URL.
+            The table below shows a simulation of the issuance of DCCs, focused specifically on the encoding of vaccinations vis-à-vis boosters, based on a sequence of consecutive “events” (either recoveries, or vaccinations).
+            The purpose of this is to see how the <span className="tt">dn/sd</span> fields' values are (to be) calculated (and why).
         </p>
         <p>
+            The sequence of events is governed by the “<span className="tt">events</span>” query parameter in the URL.
             You can modify the events in the table below - the simulation is re-run automatically, and the URL is updated accordingly.
             You can extend the sequence by choosing an event in the last step.
             You can remove an event by choosing the “-” event.
@@ -48,12 +48,6 @@ export const App = () => {
             <dt>#<em>&lt;event&gt;</em><sup>s</sup></dt>
             <dd>The number of events per type so far.</dd>
         </dl>
-        <h2>Explanation</h2>
-        <p>
-            The table above accumulatively shows a simulation of the issuance of DCCs, focused specifically on the encoding of vaccinations vis-à-vis boosters, based on consecutive events.
-            These events are found (in order) in the “event” column.
-
-        </p>
         <h2>Test cases</h2>
         <p>
             The following test cases serve as unit tests.
