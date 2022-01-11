@@ -63,7 +63,7 @@ export const testCases: TestCase[] = [
     },
     {
         events: "R,2V",
-        expectedEncoding: "2/2"
+        expectedEncoding: "1/1"
     },
     {
         events: "R",

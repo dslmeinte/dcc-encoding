@@ -32,7 +32,7 @@ export const updateFor = (state: State, event: Event):
                 if (nrRecoveries === 0) {
                     return [1, 2, "primary course with 2-dose vaccine in progress", false]
                 } else {
-                    return [2, 2, "primary course with 2-dose vaccine completed", true]
+                    return [1, 1, "primary course with 2-dose vaccine completed due to recovery", true]
                 }
             } else if (nr2Vaccines === 1) {
                 return [2, 2, "primary course with 2-dose vaccine completed", true]

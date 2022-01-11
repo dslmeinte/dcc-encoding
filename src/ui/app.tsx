@@ -21,7 +21,7 @@ export const App = () => {
         <p>
             The table below shows a simulation of the issuance of DCCs, focused specifically on the encoding of vaccinations vis-à-vis boosters, based on a sequence of consecutive “events” (either recoveries, or vaccinations).
             The purpose of this is to see how the <span className="tt">dn/sd</span> fields' values are (to be) calculated (and why).
-            This should be accordance with <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021D2301&qid=1641543677595" target="_blank">EU Implementing Decision 2021/2301</a>.
+            This should be accordance with <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32021D2301" target="_blank">EU Implementing Decision 2021/2301</a>.
             (The simulation does not take into account how long ago any of the events occurred.)
         </p>
         <h3>Disclaimer</h3>
