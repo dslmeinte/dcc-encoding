@@ -34,6 +34,10 @@ export const testCases: TestCase[] = [
         expectedEncoding: "3/3"
     },
     {
+        events: "2V,2V,R,2V",
+        expectedEncoding: "3/3"
+    },
+    {
         events: "2V,2V,2V,2V",
         expectedEncoding: "4/4"
     },
@@ -68,6 +72,6 @@ export const testCases: TestCase[] = [
     {
         events: "R",
         expectedEncoding: "0/0"
-    },
+    }
 ]
 

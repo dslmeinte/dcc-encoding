@@ -56,7 +56,7 @@ export const App = () => {
             <dt>#<em>&lt;event&gt;</em><sup>s</sup></dt>
             <dd>The number of events per type so far.</dd>
         </dl>
-        <h2>Test cases</h2>
+        <h2 id="test-cases">Test cases</h2>
         <p>
             The following test cases serve as unit tests.
             Click the “Simulate”-button of a test case to run the simulator on the corresponding events.

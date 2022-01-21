@@ -36,7 +36,7 @@ const StateRow = ({ state, index, update }: { state: State, index: number, updat
         <td>{state.nrEvents.nr1Vaccines}</td>
         <td>{state.nrEvents.nr2Vaccines}</td>
         <td>{state.nrEvents.nrRecoveries}</td>
-        <td>{state.primaryCourseCompleted ? "\u2713": ""}</td>
+        <td>{state.primaryCourseCompletion || "(not yet completed)"}</td>
     </tr>
 }
 
@@ -52,7 +52,7 @@ export const StateTable = ({ states, update }: { states: State[], update: Events
                 <th>#1<sup>s</sup></th>
                 <th>#2<sup>s</sup></th>
                 <th>#R<sup>s</sup></th>
-                <th>primary course completed</th>
+                <th>primary course completion (reason)</th>
             </tr>
         </thead>
         <tbody>
