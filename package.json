@@ -17,7 +17,7 @@
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dslmeinte/certlogic-fiddle.git"
+    "url": "git+https://github.com/dslmeinte/dcc-encoding.git"
   },
   "dependencies": {
     "certlogic-html": "^0.1.1",
