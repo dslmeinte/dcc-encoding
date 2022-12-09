@@ -15,7 +15,7 @@ export const testCases: TestCase[] = [
     },
     {
         events: "2V,R,2V",
-        expectedEncoding: "2/1"
+        expectedEncoding: "2/2"
     },
     {
         events: "1V,2V",
@@ -27,7 +27,7 @@ export const testCases: TestCase[] = [
     },
     {
         events: "2V,R,1V",
-        expectedEncoding: "2/1"
+        expectedEncoding: "2/2"
     },
     {
         events: "2V,2V,2V",

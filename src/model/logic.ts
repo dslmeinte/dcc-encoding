@@ -34,13 +34,12 @@ export const updateFor = (state: State, event: Event):
             return [nr2Vaccines + 1, nr2Vaccines + 1, "booster", primaryCourseCompletion]
         }
         case "R": {
-            if (primaryCourseCompletion === undefined && nr2Vaccines === 1) {
-                return [2, 2, "primary course with 2-dose vaccine completed", "2V+R"]
-            }
             return [dn, sd, "(just a recovery)", primaryCourseCompletion]
         }
     }
 
     return [notEncoded, notEncoded, noDescription, undefined]
 }
+
+// TODO  is it possible to re-implement this, purely based on the dn/sd and lastEvent values of the previous state (and the current event)?
 
