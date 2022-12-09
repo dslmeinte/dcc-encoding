@@ -63,6 +63,9 @@ export const App = () => {
         </p>
         <TestTable />
         <p>
+            <a href="/static/sequences-up-to-5.txt" download>This file</a> contains all possible sequences of 1V, 2V, R of up to length 5, in a human-readable format.
+        </p>
+        <p>
             This mini-app has been developed by the <a href="https://ec.europa.eu/health/ehealth/policy/network_en">European Health Network</a> (eHN), as part of the <a href="https://ec.europa.eu/info/live-work-travel-eu/coronavirus-response/safe-covid-19-vaccines-europeans/eu-digital-covid-certificate_en">EU Digital COVID Certificate effort</a>.
             <br/>
             The source can be found in this GitHub repository: <a href="https://github.com/dslmeinte/dcc-encoding" target="_blank" className="tt">https://github.com/dslmeinte/dcc-encoding</a>.

@@ -1,14 +1,18 @@
-export type Events = Event[]
+import {randInt, range} from "../func-utils"
+
 
 export type Event = "1V" | "2V" | "R"
 
 export const allEvents: Event[] = ["1V", "2V", "R"]
 
 
+export type Sequence = Event[]
+
+
 // export const isVaccination = (event: Event) => event === "1-vaccine" || event === "2-vaccine"
 
 
-export const eventsFrom = (str: string | null): Events | null => {
+export const eventsFrom = (str: string | null): Sequence | null => {
     if (str === null || str.trim().length === 0) {
         return null
     }
@@ -16,10 +20,10 @@ export const eventsFrom = (str: string | null): Events | null => {
     if (!splitEvents.every((fragment) => ( allEvents as string[]).indexOf(fragment) > -1)) {
         return null
     }
-    return splitEvents as Events
+    return splitEvents as Sequence
 }
 
-export const eventsAsString = (events: Events): string =>
+export const eventsAsString = (events: Sequence): string =>
     events.join(",")
 
 
@@ -37,15 +41,7 @@ export const combineNrEvents = (current: NrEvents, newEvent: Event): NrEvents =>
     })
 
 
-const randInt = (maxNum: number) =>
-    Math.floor(maxNum * Math.random())
 
-const range = (len: number) =>
-    Array.from(Array(len).keys())
-/*
- * When using compiler option "--downlevelIteration",
- * this can be shortened to [...Array(len).keys()].
- */
 
 export const randomSequenceAsString = () =>
     eventsAsString(
@@ -55,9 +51,9 @@ export const randomSequenceAsString = () =>
 
 export type EventOrNothing = Event | undefined
 
-export type EventsUpdater = (index: number, newEvent: EventOrNothing) => Events
+export type EventsUpdater = (index: number, newEvent: EventOrNothing) => Sequence
 
-export const updaterFor = (events: Events): EventsUpdater =>
+export const updaterFor = (events: Sequence): EventsUpdater =>
     (index, newEvent) => {
         if (newEvent === undefined) {   // slice
             return [...events.slice(0, index), ...events.slice(index + 1)]

@@ -1,9 +1,9 @@
 {
   "name": "dcc-encoding",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "scripts": {
     "dev": "BROWSER=none react-scripts start",
-    "build": "react-scripts build",
+    "build": "./run-generation.sh && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

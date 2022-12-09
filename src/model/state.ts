@@ -1,5 +1,5 @@
 import {Encoding} from "./encoding"
-import {combineNrEvents, Event, Events, NrEvents} from "./events"
+import {combineNrEvents, Event, Sequence, NrEvents} from "./events"
 import {reduceAccumulatively} from "../func-utils"
 import {updateFor} from "./logic"
 
@@ -30,7 +30,7 @@ const propagate = (current: State, newEvent: Event): State => {
     }
 }
 
-export const simulate = (events: Events): State[] =>
+export const simulate = (events: Sequence): State[] =>
     reduceAccumulatively(propagate, {
         nrEvents: {
             nr1Vaccines: 0,

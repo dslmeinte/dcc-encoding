@@ -15,7 +15,7 @@ export const updateFor = (state: State, event: Event):
                 return [1, 1, "primary course with 1-dose vaccine completed", "1V"]
             }
             if (primaryCourseCompletion === "2V+R") {
-                return [nrVaccines, 1, "booster", "2V+R"]
+                return [nrVaccines, 1, "booster", primaryCourseCompletion]
             }
             return [nrVaccines, sd === 1 ? 1 : nrVaccines, "booster", primaryCourseCompletion]
         }
@@ -34,7 +34,7 @@ export const updateFor = (state: State, event: Event):
             return [nr2Vaccines + 1, nr2Vaccines + 1, "booster", primaryCourseCompletion]
         }
         case "R": {
-            return [dn, sd, "(just a recovery)", primaryCourseCompletion]
+            return [dn, sd, "(just a recovery - dn/sd not shown on DCC)", primaryCourseCompletion]
         }
     }
 
